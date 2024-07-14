@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>update progress</title>
+</head>
+<body>
+    <h2>update progress</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Progress</button>
+        <a href="{% url 'home' %}"><button type="button">Back</button></a>
+    </form>
+</body>
+</html>

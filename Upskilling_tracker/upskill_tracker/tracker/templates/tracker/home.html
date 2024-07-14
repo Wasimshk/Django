@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upskill Tracker Home</title>
+</head>
+<body>
+    <h1>Welcome to Upskill Tracker</h1>
+    {% if user.is_authenticated %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'create_goal' %}">Create Goal</a></li>
+                <li><a href="{% url 'update_progress' %}">Update Progress</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <h2>Your Goals</h2>
+        <ul>
+            {% for goal in goals %}
+                <li>{{ goal.title }} - {{ goal.description }} ({{ goal.start_date }} to {{ goal.end_date }})</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Display Progress Updates -->
+        {% if progress %}
+            <h2>Your Progress Updates</h2>
+            <ul>
+                {% for prog in progress %}
+                    <li>{{ prog.completion_date }} - {{ prog.progress }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to track your goals.</p>
+    {% endif %}
+</body>
+</html>
